@@ -23,6 +23,8 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
+
         toolbarHeight: 80,
         // toolbarOpacity: 0.6,
         backgroundColor: Colors.deepPurple,
