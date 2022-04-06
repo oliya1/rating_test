@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:givestarreviews/givestarreviews.dart';
+import 'package:rating_test/pages/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // debugShowCheckedModeBanner: false,
       // title: 'Give Star Reviews Example',
-      home: Home(),
+      home: HomePage(),
     );
   }
 }
@@ -23,8 +24,6 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
-
         toolbarHeight: 80,
         // toolbarOpacity: 0.6,
         backgroundColor: Colors.deepPurple,
