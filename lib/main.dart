@@ -116,6 +116,17 @@ class Home extends StatelessWidget {
                       Text('چراغ های خطر'),
                       Icon(Icons.highlight_outlined)
                     ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      StarRating(onChanged: (rate) {
+                        _showToast(context, rate.toString());
+                      }),
+                      Text('سیستم گرمایشی'),
+                      Icon(Icons.local_fire_department_outlined)
+                    ],
                   )
                 ],
               )),
