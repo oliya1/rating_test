@@ -3,6 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:givestarreviews/givestarreviews.dart';
 import 'package:rating_test/pages/home_page.dart';
+import 'package:rating_test/utils/persian_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,6 +15,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        localizationsDelegates: [
+          GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          Locale("fa", "IR"), // OR Locale('ar', 'AE') OR Other RTL locales
+        ],
+        locale: Locale("fa", "IR") ,// OR Locale('ar', 'AE') OR Other RTL locales,
       // debugShowCheckedModeBanner: false,
       // title: 'Give Star Reviews Example',
       home: HomePage(),
@@ -31,8 +43,8 @@ class Home extends StatelessWidget {
         elevation: 8,
         title: Column(
           children: const [
-            Text('راننده: سید حامد جعفری'),
-            Text('پلاک: 72ب272ایران65'),
+            PersianText(text: 'راننده: سید حامد جعفری'),
+            PersianText(text: 'پلاک: 72ب272ایران65'),
           ],
         ),
 
@@ -77,7 +89,7 @@ class Home extends StatelessWidget {
                       StarRating(onChanged: (rate) {
                         _showToast(context, rate.toString());
                       }),
-                      Text('لاستیک خودرو'),
+                      PersianText(text: 'لاستیک خودرو'),
                       Icon(Icons.time_to_leave_rounded)
                     ],
                   ),
@@ -89,7 +101,7 @@ class Home extends StatelessWidget {
                       StarRating(onChanged: (rate) {
                         _showToast(context, rate.toString());
                       }),
-                      Text('چکش های اضطراری'),
+                      PersianText(text: 'چکش های اضطراری'),
                       Icon(Icons.handyman)
                     ],
                   ),
@@ -101,7 +113,7 @@ class Home extends StatelessWidget {
                       StarRating(onChanged: (rate) {
                         _showToast(context, rate.toString());
                       }),
-                      Text('روکش صندلی ها'),
+                      PersianText(text: 'روکش صندلی ها'),
                       Icon(Icons.chair)
                     ],
                   ),
@@ -112,7 +124,7 @@ class Home extends StatelessWidget {
                       StarRating(onChanged: (rate) {
                         _showToast(context, rate.toString());
                       }),
-                      Text('چراغ های خطر'),
+                      PersianText(text: 'چراغ های خطر'),
                       Icon(Icons.highlight_outlined)
                     ],
                   ),
@@ -123,7 +135,7 @@ class Home extends StatelessWidget {
                       StarRating(onChanged: (rate) {
                         _showToast(context, rate.toString());
                       }),
-                      Text('سیستم گرمایشی'),
+                      PersianText(text: 'سیستم گرمایشی'),
                       Icon(Icons.local_fire_department_outlined)
                     ],
                   )
