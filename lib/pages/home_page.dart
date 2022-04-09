@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rating_test/pages/inspection_page.dart';
 import 'package:rating_test/utils/persian_text.dart';
 import 'package:textfield_search/textfield_search.dart';
 
@@ -66,8 +67,23 @@ class _HomePageState extends State<HomePage> {
           icon: Icon(Icons.dangerous),
           label: 'ثبت تخلف',
         ),
-      ]),
+      ],
+        selectedItemColor: Colors.deepOrange,
+        // unselectedItemColor: Colors.red,
+        onTap: toDo,
+        // currentIndex: 0,
+        // type: BottomNavigationBarType.shifting,
+      ),
 
     );
+  }
+  toDo(index){
+    String s = myController.text;
+    if(index == 0) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => InspectionPage())
+      );
+    }
   }
 }

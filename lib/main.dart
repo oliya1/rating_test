@@ -34,7 +34,8 @@ class MyApp extends StatelessWidget {
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return
+      Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
         // toolbarOpacity: 0.6,
@@ -152,7 +153,8 @@ class Home extends StatelessWidget {
           icon: Icon(Icons.save_outlined),
           label: 'ذخیره',
         ),
-      ]),
+      ],
+      ),
     );
   }
 
