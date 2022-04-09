@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 class _HomePageState extends State<HomePage> {
   final label = "Some Label";
-  final dummyList = ['72ب272', '52س272'];
+  final dummyList = ['72ب272ایران65', '52س272ایران45', '65ل265ایران12'];
   TextEditingController myController = TextEditingController();
 
   @override
@@ -56,6 +56,18 @@ class _HomePageState extends State<HomePage> {
         //   ),
         // ),
       ),
+
+      bottomNavigationBar: BottomNavigationBar(items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.search),
+          label: 'ثبت بازرسی فنی',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.dangerous),
+          label: 'ثبت تخلف',
+        ),
+      ]),
+
     );
   }
 }
