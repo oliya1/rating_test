@@ -5,7 +5,7 @@ import '../utils/persian_text.dart';
 
 class InspectionPage extends StatelessWidget {
   final String? text;
-  const InspectionPage({Key? key, @required this.text}) : super(key: key);
+  const InspectionPage({Key? key, this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +14,13 @@ class InspectionPage extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: 80,
           // toolbarOpacity: 0.6,
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.deepOrange,
           centerTitle: true,
           elevation: 8,
           title: Column(
-            children: const [
-              PersianText(text: 'راننده: سید حامد جعفری'),
-              Text('${text}'),
+            children: [
+              const PersianText(text: 'راننده: سید حامد جعفری'),
+              PersianText(text: 'پلاک: ${text}'),
             ],
           ),
 
@@ -32,7 +32,7 @@ class InspectionPage extends StatelessWidget {
         body: SafeArea(
           child: Builder(
             builder: (context) => Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   children: <Widget>[
                     // StarRating(onChanged: (rate) {
@@ -62,57 +62,57 @@ class InspectionPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const Icon(Icons.time_to_leave_rounded),
+                        const PersianText(text: 'لاستیک خودرو'),
                         StarRating(onChanged: (rate) {
                           _showToast(context, rate.toString());
                         }),
-                        PersianText(text: 'لاستیک خودرو'),
-                        Icon(Icons.time_to_leave_rounded)
                       ],
                     ),
                     // Divider(height: 10),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const Icon(Icons.handyman),
+                        const PersianText(text: 'چکش های اضطراری'),
                         StarRating(onChanged: (rate) {
                           _showToast(context, rate.toString());
                         }),
-                        PersianText(text: 'چکش های اضطراری'),
-                        Icon(Icons.handyman)
                       ],
                     ),
                     // Divider(height: 10),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const Icon(Icons.chair),
+                        const PersianText(text: 'روکش صندلی ها'),
                         StarRating(onChanged: (rate) {
                           _showToast(context, rate.toString());
                         }),
-                        PersianText(text: 'روکش صندلی ها'),
-                        Icon(Icons.chair)
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const Icon(Icons.highlight_outlined),
+                        const PersianText(text: 'چراغ های خطر'),
                         StarRating(onChanged: (rate) {
                           _showToast(context, rate.toString());
                         }),
-                        PersianText(text: 'چراغ های خطر'),
-                        Icon(Icons.highlight_outlined)
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const Icon(Icons.local_fire_department_outlined),
+                        const PersianText(text: 'سیستم گرمایشی'),
                         StarRating(onChanged: (rate) {
                           _showToast(context, rate.toString());
                         }),
-                        PersianText(text: 'سیستم گرمایشی'),
-                        Icon(Icons.local_fire_department_outlined)
                       ],
                     )
                   ],

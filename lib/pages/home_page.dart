@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.deepOrange,
         centerTitle: true,
         elevation: 8,
-        title: PersianText(text: 'امور ایمنی شرکت ملی صنایع مس ایران', fontSize: 21,)
+        title: const PersianText(text: 'امور ایمنی شرکت ملی صنایع مس ایران', fontSize: 21,)
 
         // Container(
         //   padding: EdgeInsets.all(8),
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
     if(index == 0) {
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => InspectionPage())
+          MaterialPageRoute(builder: (context) => InspectionPage(text: s))
       );
     }
   }
