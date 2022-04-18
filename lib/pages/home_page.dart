@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:rating_test/pages/inspection_page.dart';
 import 'package:rating_test/custom_widgets/persian_text.dart';
+import 'package:rating_test/pages/inspection_page.dart';
 import 'package:textfield_search/textfield_search.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,6 +35,8 @@ class _HomePageState extends State<HomePage> {
     return _list;
   }
 
+  String? dropdownValue;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +53,36 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Container(
-              margin: const EdgeInsets.all(8),
+            margin: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+            padding: const EdgeInsets.all(8),
+            child: DropdownButtonFormField<String>(
+              // value: dropdownValue,
+              icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+              decoration: const InputDecoration(
+                hintText: 'لطفا نوع خودرو را انتخاب نمایید',
+                border: OutlineInputBorder(),
+              ),
+              elevation: 8,
+              style: const TextStyle(color: Colors.black),
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              },
+              items: <String>[
+                'خودرو سبک',
+                'خودرو نیمه سنگین',
+                'تانکرهای حمل اسید'
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ),
+          Container(
+              margin: const EdgeInsets.fromLTRB(8, 0, 8, 0),
               padding: const EdgeInsets.all(8),
               child: TextFieldSearch(
                 // initialList: dummyList,
@@ -63,12 +93,11 @@ class _HomePageState extends State<HomePage> {
                 },
                 minStringLength: 2,
                 textStyle: const TextStyle(color: Colors.red),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     // hintTextDirection: TextDirection.rtl,
                     hintText: 'لطفا قسمتی از پلاک را وارد نمایید'),
                 getSelectedValue: (item) {
-                  print(item.label);
                   showDialog(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
@@ -190,9 +219,13 @@ class _HomePageState extends State<HomePage> {
                 DataCell(Text('10')),
               ]),
               DataRow(cells: <DataCell>[
-                DataCell(Text('لاستیک ها',style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold))),
+                DataCell(Text('لاستیک ها',
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold))),
                 DataCell(Text('14')),
-                DataCell(Text('6',style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold))),
+                DataCell(Text('6',
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold))),
               ]),
               DataRow(cells: <DataCell>[
                 DataCell(Text('شیشه ها')),

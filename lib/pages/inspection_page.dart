@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:rating_test/custom_widgets/item_box.dart';
-
 import '../custom_widgets/persian_text.dart';
 import '../custom_widgets/rating_bar.dart';
 
@@ -37,26 +34,11 @@ class InspectionPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           // padding: EdgeInsets.fromLTRB(3, 12, 3, 20),
           children: const <Widget>[
-            NewRatingBar(icon: Icons.time_to_leave_rounded, name: 'لاستیک خودرو'),
-            NewRatingBar(icon: Icons.handyman, name: 'چکش های اضطراری'),
-            NewRatingBar(icon: Icons.chair, name: 'روکش صندلی ها'),
-            NewRatingBar(icon: Icons.highlight, name: 'چراغ های خطر'),
-            NewRatingBar(icon: Icons.local_fire_department, name: 'سیستم گرمایشی'),
-            NewRatingBar(icon: Icons.time_to_leave_rounded, name: 'لاستیک خودرو'),
-            NewRatingBar(icon: Icons.handyman, name: 'چکش های اضطراری'),
-            NewRatingBar(icon: Icons.chair, name: 'روکش صندلی ها'),
-            NewRatingBar(icon: Icons.highlight, name: 'چراغ های خطر'),
-            NewRatingBar(icon: Icons.local_fire_department, name: 'سیستم گرمایشی'),
-            NewRatingBar(icon: Icons.time_to_leave_rounded, name: 'لاستیک خودرو'),
-            NewRatingBar(icon: Icons.handyman, name: 'چکش های اضطراری'),
-            NewRatingBar(icon: Icons.chair, name: 'روکش صندلی ها'),
-            NewRatingBar(icon: Icons.highlight, name: 'چراغ های خطر'),
-            NewRatingBar(icon: Icons.local_fire_department, name: 'سیستم گرمایشی'),
-            NewRatingBar(icon: Icons.time_to_leave_rounded, name: 'لاستیک خودرو'),
-            NewRatingBar(icon: Icons.handyman, name: 'چکش های اضطراری'),
-            NewRatingBar(icon: Icons.chair, name: 'روکش صندلی ها'),
-            NewRatingBar(icon: Icons.highlight, name: 'چراغ های خطر'),
-            NewRatingBar(icon: Icons.local_fire_department, name: 'سیستم گرمایشی'),
+            NewRatingBar(icon: Icons.time_to_leave_rounded, name: 'لاستیک خودرو', weight: 10),
+            NewRatingBar(icon: Icons.handyman, name: 'چکش های اضطراری', weight: 2),
+            NewRatingBar(icon: Icons.chair, name: 'روکش صندلی ها', weight: 1),
+            NewRatingBar(icon: Icons.highlight, name: 'چراغ های خطر', weight: 6),
+            NewRatingBar(icon: Icons.local_fire_department, name: 'سیستم گرمایشی', weight: 5)
           ],
         ),
       ),
