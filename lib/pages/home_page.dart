@@ -100,7 +100,8 @@ class _HomePageState extends State<HomePage> {
                 getSelectedValue: (item) {
                   showDialog(
                       context: context,
-                      builder: (BuildContext context) => AlertDialog(
+                      builder: (BuildContext context) =>
+                          AlertDialog(
                             // title: const Text('AlertDialog Title'),
                             content: setCard(),
                             actions: <Widget>[
@@ -147,12 +148,12 @@ class _HomePageState extends State<HomePage> {
             label: 'ثبت بازرسی فنی',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.dangerous),
-            label: 'ثبت تخلف',
+            icon: Icon(Icons.refresh),
+            label: 'ورود مجدد اطلاعات',
           ),
         ],
         selectedItemColor: Colors.deepOrange,
-        // unselectedItemColor: Colors.red,
+        unselectedItemColor: Colors.deepOrange,
         onTap: toDo,
         // currentIndex: 0,
         // type: BottomNavigationBarType.shifting,
@@ -165,6 +166,12 @@ class _HomePageState extends State<HomePage> {
     if (index == 0) {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => InspectionPage(text: s)));
+    }
+    else{
+      myController.text = '';
+      setState(() {
+        _widget = const Text('');
+      });
     }
   }
 

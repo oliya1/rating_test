@@ -11,50 +11,50 @@ class ImagePickerExample extends StatefulWidget {
 
 class _ImagePickerExampleState extends State<ImagePickerExample> {
   //Holds image File
-  File _image = File('');
+  File? _image;
 
   //ImagePicker instance.
   final picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
-    return
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: _image != null ? Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                width: 300,
-                height: 300,
-                child: Image.file(
-                  _image,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: _image != null
+              ? Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    width: 300,
+                    height: 300,
+                    child: Image.file(
+                      _image!,
+                    ),
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Text('تصویری وجود ندارد'),
                 ),
-              ),
-            )
-                : Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Text('No image selected'),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton.icon(
+              onPressed: () => _getImage(ImageSource.gallery),
+              icon: Icon(Icons.image),
+              label: Text('فایل'),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () => _getImage(ImageSource.gallery),
-                icon: Icon(Icons.image),
-                label: Text('فایل'),
-              ),
-              ElevatedButton.icon(
-                onPressed: () => _getImage(ImageSource.camera),
-                icon: Icon(Icons.camera),
-                label: Text('دوربین'),
-              ),
-            ],
-          ),
-        ],
-      );
+            ElevatedButton.icon(
+              onPressed: () => _getImage(ImageSource.camera),
+              icon: Icon(Icons.camera),
+              label: Text('دوربین'),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   //ImageSource: Camera and Gallery.
@@ -64,8 +64,9 @@ class _ImagePickerExampleState extends State<ImagePickerExample> {
     if (imageFile == null) return;
 
     setState(
-          () {
+      () {
 //Rebuild UI with the selected image.
+        print(imageFile.path);
         _image = File(imageFile.path);
       },
     );

@@ -3,31 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:rating_test/custom_widgets/persian_text.dart';
 import 'package:rating_test/pages/image_picker_example.dart';
-import 'my_globals.dart' as globals;
 
 class NewRatingBar extends StatefulWidget {
   final IconData? icon;
   final String? name;
   final int? weight;
-  final String? score;
+  int? score;
+  final ValueSetter<int>? callback;
 
-  NewRatingBar({Key? key, this.icon, this.name, this.weight, this.score}) : super(key: key);
+  NewRatingBar(
+      {Key? key, this.icon, this.name, this.weight, this.score, this.callback})
+      : super(key: key);
 
   @override
   _NewRatingBarState createState() => _NewRatingBarState();
 }
 
-class _NewRatingBarState extends State<NewRatingBar>{
+class _NewRatingBarState extends State<NewRatingBar> {
   Color picIconColor = Colors.black;
 
   @override
   Widget build(BuildContext context) {
-    int? score = globals.score['score1'];
     return Card(
       margin: const EdgeInsets.all(10),
       elevation: 5,
-      child:
-      Column(
+      child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,15 +42,15 @@ class _NewRatingBarState extends State<NewRatingBar>{
                 allowHalfRating: false,
                 itemCount: 5,
                 itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) =>
-                const Icon(
+                itemBuilder: (context, _) => const Icon(
                   Icons.star,
                   color: Colors.amber,
                 ),
                 onRatingUpdate: (rating) {
                   setState(() {
-                    score = rating.round();
+                    widget.score = rating.round();
                   });
+                  widget.callback!(rating.round() * widget.weight!);
                 },
               ),
             ],
@@ -63,16 +63,30 @@ class _NewRatingBarState extends State<NewRatingBar>{
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (BuildContext context) =>
-                      const AlertDialog(
-                          content:
-                          // Text('salam')
-                          ImagePickerExample()
+                      builder: (BuildContext context) => AlertDialog(
+                        actionsPadding: EdgeInsets.all(18),
+                        content: ImagePickerExample(),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 1),
+                            child: const Text('تایید'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context, 0);
+                            },
+                            child: const Text('اقدام مجدد'),
+                          ),
+                        ],
                       ),
-                    );
-                    setState(() {
-                      picIconColor = Colors.green;
+                    ).then((value) {
+                      if(value == 1){
+                        setState(() {
+                          picIconColor = Colors.green;
+                        });
+                      }
                     });
+
                     // final cameras = await availableCameras();
 
                     // Get a specific camera from the list of available cameras.
@@ -81,10 +95,16 @@ class _NewRatingBarState extends State<NewRatingBar>{
                     // //   // Pass the appropriate camera to the TakePictureScreen widget.
                     //   camera: firstCamera,
                     // );
-                  }
-                  , icon: Icon(Icons.photo_camera, size: 20, color: picIconColor,)
-              ),
-              PersianText(text: 'نمره: ''${widget.score}', fontSize: 13,)
+                  },
+                  icon: Icon(
+                    Icons.photo_camera,
+                    size: 20,
+                    color: picIconColor,
+                  )),
+              PersianText(
+                text: 'نمره: ' '${widget.score}',
+                fontSize: 13,
+              )
             ],
           )
         ],
