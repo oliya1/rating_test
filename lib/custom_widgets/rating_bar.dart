@@ -36,7 +36,7 @@ class _NewRatingBarState extends State<NewRatingBar> {
               PersianText(text: widget.name),
               RatingBar.builder(
                 // initialRating: 0,
-                itemSize: 22,
+                itemSize: 25,
                 minRating: 0,
                 direction: Axis.horizontal,
                 allowHalfRating: false,
@@ -86,15 +86,6 @@ class _NewRatingBarState extends State<NewRatingBar> {
                         });
                       }
                     });
-
-                    // final cameras = await availableCameras();
-
-                    // Get a specific camera from the list of available cameras.
-                    // final firstCamera = cameras.first;
-                    // TakePictureScreen(
-                    // //   // Pass the appropriate camera to the TakePictureScreen widget.
-                    //   camera: firstCamera,
-                    // );
                   },
                   icon: Icon(
                     Icons.photo_camera,

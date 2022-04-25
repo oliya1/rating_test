@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_test/custom_widgets/persian_text.dart';
 import 'package:rating_test/pages/inspection_page.dart';
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController myController = TextEditingController();
 
   Future<List> fetchComplexData() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 1000));
     List _list = <dynamic>[];
     List _jsonList = [
       {'label': '72ب272ایران65', 'value': 30},
@@ -50,96 +51,99 @@ class _HomePageState extends State<HomePage> {
             text: 'امور ایمنی شرکت ملی صنایع مس ایران',
             fontSize: 21,
           )),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-            padding: const EdgeInsets.all(8),
-            child: DropdownButtonFormField<String>(
-              // value: dropdownValue,
-              icon: const Icon(Icons.arrow_drop_down_circle_outlined),
-              decoration: const InputDecoration(
-                hintText: 'لطفا نوع خودرو را انتخاب نمایید',
-                border: OutlineInputBorder(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+              padding: const EdgeInsets.all(8),
+              child: DropdownButtonFormField<String>(
+                // value: dropdownValue,
+                icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+                decoration: const InputDecoration(
+                  hintText: 'لطفا نوع خودرو را انتخاب نمایید',
+                  border: OutlineInputBorder(),
+                ),
+                elevation: 8,
+                style: const TextStyle(color: Colors.black),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                  });
+                },
+                items: <String>[
+                  'خودرو سبک',
+                  'خودرو نیمه سنگین',
+                  'تانکرهای حمل اسید'
+                ].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
               ),
-              elevation: 8,
-              style: const TextStyle(color: Colors.black),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                });
-              },
-              items: <String>[
-                'خودرو سبک',
-                'خودرو نیمه سنگین',
-                'تانکرهای حمل اسید'
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
             ),
-          ),
-          Container(
+            Container(
+                margin: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                padding: const EdgeInsets.all(8),
+                child: TextFieldSearch(
+                  label: 'Complex Future List',
+                  controller: myController,
+                  future: () {
+                    return fetchComplexData();
+                  },
+                  minStringLength: 2,
+                  textStyle: const TextStyle(color: Colors.red),
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      // hintTextDirection: TextDirection.rtl,
+                      hintText: 'لطفا قسمتی از پلاک را وارد نمایید'),
+                  getSelectedValue: (item) {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          actionsAlignment: MainAxisAlignment.spaceEvenly,
+                          content: setCard(),
+                          actions: <Widget>[
+
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 1),
+                              child: const Text('تایید'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 0);
+                              },
+                              child: const Text('اقدام مجدد'),
+                            ),
+                          ],
+                        )).then((value) => {
+                      if (value != null)
+                        {
+                          if (value == 0)
+                            {myController.text = ''}
+                          else
+                            {
+                              setState(() {
+                                _widget = setTable();
+                              })
+                            },
+                          FocusScope.of(context).dispose()
+                        }
+                    });
+
+                    // setState(() {
+                    //   _widget = setCard();
+                    // });
+                  },
+                )),
+            Container(
               margin: const EdgeInsets.fromLTRB(8, 0, 8, 0),
               padding: const EdgeInsets.all(8),
-              child: TextFieldSearch(
-                // initialList: dummyList,
-                label: 'Complex Future List',
-                controller: myController,
-                future: () {
-                  return fetchComplexData();
-                },
-                minStringLength: 2,
-                textStyle: const TextStyle(color: Colors.red),
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    // hintTextDirection: TextDirection.rtl,
-                    hintText: 'لطفا قسمتی از پلاک را وارد نمایید'),
-                getSelectedValue: (item) {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) =>
-                          AlertDialog(
-                            // title: const Text('AlertDialog Title'),
-                            content: setCard(),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, 1),
-                                child: const Text('تایید'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context, 0);
-                                },
-                                child: const Text('اقدام مجدد'),
-                              ),
-                            ],
-                          )).then((value) => {
-                        if (value != null)
-                          {
-                            if (value == 0)
-                              {myController.text = ''}
-                            else
-                              {
-                                setState(() {
-                                  _widget = setTable();
-                                })
-                              },
-                            FocusScope.of(context).dispose()
-                          }
-                      });
-
-                  // setState(() {
-                  //   _widget = setCard();
-                  // });
-                },
-              )),
-          Container(
-            child: _widget,
-          )
-        ],
+              child: _widget,
+            )
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
@@ -166,8 +170,7 @@ class _HomePageState extends State<HomePage> {
     if (index == 0) {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => InspectionPage(text: s)));
-    }
-    else{
+    } else {
       myController.text = '';
       setState(() {
         _widget = const Text('');
@@ -176,45 +179,94 @@ class _HomePageState extends State<HomePage> {
   }
 
   setCard() {
-    return Card(
-      child: Column(
-        children: const [
-          PersianText(text: 'نام راننده: سید حامد جعفری اولیا'),
-          PersianText(text: 'نوع خودرو: سبک'),
-          PersianText(text: 'شرکت: راهوار'),
-          PersianText(text: 'موبایل راننده: 0913***9023'),
-          PersianText(text: 'کدملی راننده: 2991743247'),
-          PersianText(text: 'مجوز تردد: از تاریخ 1401/01/01 الی 1401/02/01'),
+    return
+      Column(
+        children: [
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              PersianText(text: 'نام راننده:', fontColor: Colors.red),
+              PersianText(text: 'سید حامد جعفری اولیا'),
+            ],
+          ),
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              PersianText(text: 'نوع خودرو:', fontColor: Colors.red),
+              PersianText(text: 'سبک'),
+            ],
+          ),
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              PersianText(text: 'شرکت:', fontColor: Colors.red),
+              PersianText(text: 'راهوار'),
+            ],
+          ),
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              PersianText(text: 'موبایل راننده:', fontColor: Colors.red),
+              PersianText(text: '9023***0913'),
+            ],
+          ),
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              PersianText(text: 'کدملی راننده:', fontColor: Colors.red),
+              PersianText(text: '2991745689'),
+            ],
+          ),
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              PersianText(text: 'مجوز تردد از تاریخ:', fontColor: Colors.red),
+            ],
+          ),
+          PersianText(text: '1401/01/01 الی 1401/02/01'),
         ],
-      ),
-    );
+      );
+
   }
 
   setTable() {
-    return SingleChildScrollView(
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
+    return
+        Column(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-          const Center(
-            child: PersianText(text: 'سوابق آخرین بازرسی ها', fontSize: 23),
+          Center(
+            child: PersianText(text: 'سوابق آخرین بازرسی ها', fontSize: 20),
           ),
           DataTable(
-            columns: const <DataColumn>[
+            border: TableBorder.all(),
+            columns: <DataColumn>[
               DataColumn(
                   label: Text('آیتم ها',
                       style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold))),
+                          fontSize: 14, fontWeight: FontWeight.bold))),
               DataColumn(
                   label: Text('1400/11/12',
                       style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold))),
+                          fontSize: 12, fontWeight: FontWeight.bold))),
               DataColumn(
                   label: Text('1401/01/20',
                       style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold))),
+                          fontSize: 12, fontWeight: FontWeight.bold))),
             ],
-            rows: const <DataRow>[
+            rows: <DataRow>[
               DataRow(cells: <DataCell>[
                 DataCell(Text('نظافت خودرو')),
                 DataCell(Text('10')),
@@ -241,65 +293,7 @@ class _HomePageState extends State<HomePage> {
               ]),
             ],
           ),
-        ]));
-  }
-
-  setTable1() {
-    return Table(
-      border: TableBorder.all(),
-      columnWidths: const <int, TableColumnWidth>{
-        0: IntrinsicColumnWidth(),
-        1: FlexColumnWidth(),
-        2: FixedColumnWidth(64),
-      },
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: <TableRow>[
-        TableRow(
-          children: <Widget>[
-            Container(
-              height: 32,
-              color: Colors.green,
-              child: PersianText(text: ''),
-            ),
-            TableCell(
-              verticalAlignment: TableCellVerticalAlignment.top,
-              child: Container(
-                height: 32,
-                width: 32,
-                color: Colors.red,
-              ),
-            ),
-            Container(
-              height: 64,
-              color: Colors.blue,
-            ),
-          ],
-        ),
-        TableRow(
-          decoration: const BoxDecoration(
-            color: Colors.grey,
-          ),
-          children: <Widget>[
-            Container(
-              height: 64,
-              width: 128,
-              color: Colors.purple,
-            ),
-            Container(
-              height: 32,
-              color: Colors.yellow,
-            ),
-            Center(
-              child: Container(
-                height: 32,
-                width: 32,
-                color: Colors.orange,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+        ]);
   }
 }
 

@@ -81,7 +81,7 @@ class _ImagePickerExampleState extends State<ImagePickerExample> {
     setState(
       () {
 //Rebuild UI with the selected image.
-        print(cropped!.path);
+//         print(cropped!.path);
         _image = File(cropped!.path);
       },
     );
