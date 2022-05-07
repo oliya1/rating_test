@@ -64,7 +64,8 @@ class _NewRatingBarState extends State<NewRatingBar> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                        actionsPadding: EdgeInsets.all(18),
+                        // actionsPadding: EdgeInsets.all(18),
+                        actionsAlignment: MainAxisAlignment.spaceEvenly,
                         content: ImagePickerExample(),
                         actions: <Widget>[
                           TextButton(

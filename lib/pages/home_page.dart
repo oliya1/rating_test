@@ -118,6 +118,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         )).then((value) => {
+                      FocusScope.of(context).nextFocus(),
+
                       if (value != null)
                         {
                           if (value == 0)
@@ -128,7 +130,6 @@ class _HomePageState extends State<HomePage> {
                                 _widget = setTable();
                               })
                             },
-                          FocusScope.of(context).dispose()
                         }
                     });
 
@@ -273,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                 DataCell(Text('12')),
               ]),
               DataRow(cells: <DataCell>[
-                DataCell(Text('روکش صندلی ها')),
+                DataCell(Text('روکش صندلی')),
                 DataCell(Text('15')),
                 DataCell(Text('10')),
               ]),

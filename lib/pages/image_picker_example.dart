@@ -77,7 +77,6 @@ class _ImagePickerExampleState extends State<ImagePickerExample> {
      );
 //if user doesn't take any image, just return.
     if (imageFile == null) return;
-
     setState(
       () {
 //Rebuild UI with the selected image.

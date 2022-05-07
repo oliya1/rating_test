@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../custom_widgets/persian_text.dart';
 import '../custom_widgets/rating_bar.dart';
-import '../custom_widgets/my_globals.dart' as globals;
 
 class InspectionPage extends StatelessWidget {
   final String? text;
@@ -43,7 +42,7 @@ class InspectionPage extends StatelessWidget {
               s2 = x;
               avrage(context);
             }),
-            NewRatingBar(icon: Icons.chair, name: 'روکش صندلی ها', weight: 1, score: 0, callback: (x) {
+            NewRatingBar(icon: Icons.chair, name: 'روکش صندلی', weight: 1, score: 0, callback: (x) {
               s3 = x;
               avrage(context);
             }),
