@@ -50,7 +50,7 @@ class _NewRatingBarState extends State<NewRatingBar> {
                   setState(() {
                     widget.score = rating.round();
                   });
-                  widget.callback!(rating.round() * widget.weight!);
+                  widget.callback!(rating.round());
                 },
               ),
             ],

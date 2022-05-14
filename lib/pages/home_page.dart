@@ -48,8 +48,8 @@ class _HomePageState extends State<HomePage> {
           centerTitle: true,
           elevation: 8,
           title: const PersianText(
-            text: 'امور ایمنی شرکت ملی صنایع مس ایران',
-            fontSize: 21,
+            text: 'امور ایمنی، بهداشت و محیط زیست مجتمع مس سرچشمه',
+            fontSize: 15,
           )),
       body: SingleChildScrollView(
         child: Column(

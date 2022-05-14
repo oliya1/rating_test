@@ -1,14 +1,13 @@
+import 'dart:ffi';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../custom_widgets/persian_text.dart';
 import '../custom_widgets/rating_bar.dart';
 
 class InspectionPage extends StatelessWidget {
   final String? text;
-  int s1 = 0;
-  int s2 = 0;
-  int s3 = 0;
-  int s4 = 0;
-  int s5 = 0;
+  var s1 = [0,0,0,0,0];
   double avg = 0;
 
   InspectionPage({Key? key, this.text}) : super(key: key);
@@ -35,23 +34,23 @@ class InspectionPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             NewRatingBar(icon: Icons.time_to_leave_rounded, name: 'لاستیک خودرو', weight: 10, score: 0, callback: (x){
-              s1 = x;
+              s1[0] = x*10;
               avrage(context);
             }),
             NewRatingBar(icon: Icons.handyman, name: 'چکش های اضطراری', weight: 2, score: 0, callback: (x){
-              s2 = x;
+              s1[1] = x*2;
               avrage(context);
             }),
             NewRatingBar(icon: Icons.chair, name: 'روکش صندلی', weight: 1, score: 0, callback: (x) {
-              s3 = x;
+              s1[2] = x*1;
               avrage(context);
             }),
             NewRatingBar(icon: Icons.highlight, name: 'چراغ های خطر', weight: 6, score: 0, callback: (x) {
-              s4 = x;
+              s1[3] = x*6;
               avrage(context);
             }),
             NewRatingBar(icon: Icons.local_fire_department, name: 'سیستم گرمایشی', weight: 5, score: 0, callback: (x) {
-              s5 = x;
+              s1[4] = x*5;
               avrage(context);
             }),
           ],
@@ -92,7 +91,11 @@ class InspectionPage extends StatelessWidget {
 
   }
   void avrage(BuildContext context){
-    avg = (s1 + s2 + s3 + s4 + s5)/24;
+    int _sum = 0;
+    for (var i in s1) {
+      _sum += i;
+    }
+    avg = _sum/24;
     _showToast(context, 'میانگین: ${avg.toStringAsFixed(2)}', 1500);
   }
 
