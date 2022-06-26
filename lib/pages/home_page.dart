@@ -11,11 +11,14 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+enum SingingCharacter { lafayette, jefferson }
+
 class _HomePageState extends State<HomePage> {
   final label = "Some Label";
   final dummyList = ['72ب272ایران65', '52س272ایران45', '65ل265ایران12'];
   Widget _widget = const Text('');
   TextEditingController myController = TextEditingController();
+  SingingCharacter? _character = SingingCharacter.lafayette;
 
   Future<List> fetchComplexData() async {
     await Future.delayed(const Duration(milliseconds: 1000));
@@ -102,36 +105,34 @@ class _HomePageState extends State<HomePage> {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                          actionsAlignment: MainAxisAlignment.spaceEvenly,
-                          content: setCard(),
-                          actions: <Widget>[
-
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 1),
-                              child: const Text('تایید'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context, 0);
-                              },
-                              child: const Text('اقدام مجدد'),
-                            ),
-                          ],
-                        )).then((value) => {
-                      FocusScope.of(context).nextFocus(),
-
-                      if (value != null)
-                        {
-                          if (value == 0)
-                            {myController.text = ''}
-                          else
+                              actionsAlignment: MainAxisAlignment.spaceEvenly,
+                              content: setCard(),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 1),
+                                  child: const Text('تایید'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context, 0);
+                                  },
+                                  child: const Text('اقدام مجدد'),
+                                ),
+                              ],
+                            )).then((value) => {
+                          FocusScope.of(context).nextFocus(),
+                          if (value != null)
                             {
-                              setState(() {
-                                _widget = setTable();
-                              })
-                            },
-                        }
-                    });
+                              if (value == 0)
+                                {myController.text = ''}
+                              else
+                                {
+                                  setState(() {
+                                    _widget = setTable();
+                                  })
+                                },
+                            }
+                        });
 
                     // setState(() {
                     //   _widget = setCard();
@@ -139,10 +140,40 @@ class _HomePageState extends State<HomePage> {
                   },
                 )),
             Container(
+              margin: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: RadioListTile<SingingCharacter>(
+                        title: const Text('دوره ای'),
+                        value: SingingCharacter.lafayette,
+                        groupValue: _character,
+                        onChanged: (SingingCharacter? value) {
+                          setState(() {
+                            _character = value;
+                          });
+                        },
+                      )),
+                  Expanded(
+                      child: RadioListTile<SingingCharacter>(
+                        title: const Text('اتفاقی'),
+                        value: SingingCharacter.jefferson,
+                        groupValue: _character,
+                        onChanged: (SingingCharacter? value) {
+                          setState(() {
+                            _character = value;
+                          });
+                        },
+                      )),
+                ],
+              ),
+            ),
+            Container(
               margin: const EdgeInsets.fromLTRB(8, 0, 8, 0),
               padding: const EdgeInsets.all(8),
               child: _widget,
-            )
+            ),
           ],
         ),
       ),
@@ -180,74 +211,71 @@ class _HomePageState extends State<HomePage> {
   }
 
   setCard() {
-    return
-      Column(
-        children: [
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              PersianText(text: 'نام راننده:', fontColor: Colors.red),
-              PersianText(text: 'سید حامد جعفری اولیا'),
-            ],
-          ),
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              PersianText(text: 'نوع خودرو:', fontColor: Colors.red),
-              PersianText(text: 'سبک'),
-            ],
-          ),
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              PersianText(text: 'شرکت:', fontColor: Colors.red),
-              PersianText(text: 'راهوار'),
-            ],
-          ),
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              PersianText(text: 'موبایل راننده:', fontColor: Colors.red),
-              PersianText(text: '9023***0913'),
-            ],
-          ),
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              PersianText(text: 'کدملی راننده:', fontColor: Colors.red),
-              PersianText(text: '2991745689'),
-            ],
-          ),
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              PersianText(text: 'مجوز تردد از تاریخ:', fontColor: Colors.red),
-            ],
-          ),
-          PersianText(text: '1401/01/01 الی 1401/02/01'),
-        ],
-      );
-
+    return Column(
+      children: [
+        Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            PersianText(text: 'نام راننده:', fontColor: Colors.red),
+            PersianText(text: 'سید حامد جعفری اولیا'),
+          ],
+        ),
+        Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            PersianText(text: 'نوع خودرو:', fontColor: Colors.red),
+            PersianText(text: 'سبک'),
+          ],
+        ),
+        Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            PersianText(text: 'شرکت:', fontColor: Colors.red),
+            PersianText(text: 'راهوار'),
+          ],
+        ),
+        Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            PersianText(text: 'موبایل راننده:', fontColor: Colors.red),
+            PersianText(text: '9023***0913'),
+          ],
+        ),
+        Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            PersianText(text: 'کدملی راننده:', fontColor: Colors.red),
+            PersianText(text: '2991745689'),
+          ],
+        ),
+        Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            PersianText(text: 'مجوز تردد از تاریخ:', fontColor: Colors.red),
+          ],
+        ),
+        PersianText(text: '1401/01/01 الی 1401/02/01'),
+      ],
+    );
   }
 
   setTable() {
-    return
-        Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+    return Column(
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        // mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
           Center(
             child: PersianText(text: 'سوابق آخرین بازرسی ها', fontSize: 20),
           ),
@@ -291,6 +319,16 @@ class _HomePageState extends State<HomePage> {
                 DataCell(Text('شیشه ها')),
                 DataCell(Text('12')),
                 DataCell(Text('18')),
+              ]),
+              DataRow(cells: <DataCell>[
+                DataCell(Text('نظافت خودرو')),
+                DataCell(Text('10')),
+                DataCell(Text('12')),
+              ]),
+              DataRow(cells: <DataCell>[
+                DataCell(Text('روکش صندلی')),
+                DataCell(Text('15')),
+                DataCell(Text('10')),
               ]),
             ],
           ),

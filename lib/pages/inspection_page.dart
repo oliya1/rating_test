@@ -98,5 +98,4 @@ class InspectionPage extends StatelessWidget {
     avg = _sum/24;
     _showToast(context, 'میانگین: ${avg.toStringAsFixed(2)}', 1500);
   }
-
 }
